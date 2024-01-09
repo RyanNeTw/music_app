@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TrackController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,14 +16,14 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+use App\Http\Controllers\HomeController;
+
+
+Route::get('/', [TrackController::class, 'index'])->name('tracks.index');
+
+Route::get('/tracks/create', [TrackController::class, 'create'])->name('tracks.create');
+
+Route::get('/user', [HomeController::class, 'index']);
 
 Route::middleware([
     'auth:sanctum',
@@ -33,3 +34,5 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
+
+
