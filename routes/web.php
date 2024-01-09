@@ -21,6 +21,8 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [TrackController::class, 'index'])->name('tracks.index');
 
+Route::post('/tracks', [TrackController::class, 'store'])->name('tracks.store');
+
 Route::get('/tracks/create', [TrackController::class, 'create'])->name('tracks.create');
 
 Route::get('/user', [HomeController::class, 'index']);

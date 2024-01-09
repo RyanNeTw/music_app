@@ -18,4 +18,10 @@ class Track extends Model
         'display',
         'play_count',
     ];
+
+    // Tried to add a default value but it says : "Constant expression contains invalid operations"
+    
+    // protected $attributes = [
+    //     'uuid' => 'trk-' . Str::uuid(),
+    // ];
 }
