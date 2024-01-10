@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import { Head } from "@inertiajs/vue3";
+import TrackElement from "@/Components/TrackElement.vue";
 
 const props = defineProps({
     tracks: Array,
@@ -18,6 +18,10 @@ const filteredTracks = computed(() => {
             track.title.toLowerCase().includes(search.value.toLowerCase()) ||
             track.artist.toLowerCase().includes(search.value.toLowerCase())
     );
+});
+
+const active = computed(() => {
+    return currentTrack.value && !audio.value.paused;
 });
 
 const playMusic = (track) => {
@@ -53,29 +57,19 @@ const playMusic = (track) => {
                     placeholder="Search..."
                     class="mb-8 rounded-lg w-1/4"
                 />
-                <ul class="flex flex-col gap-y-4">
-                    <li
-                        v-if="filteredTracks.length > 0"
+                <ul
+                    class="flex flex-wrap gap-8 justify-center"
+                    :v-if="filteredTracks.length > 0"
+                >
+                    <TrackElement
                         v-for="(track, index) in filteredTracks"
-                        :class="index % 2 ? 'bg-white' : 'bg-gray-100'"
                         :key="track.uuid"
-                        class="flex items-center gap-x-4 h-24 rounded-lg p-4"
-                        @click="playMusic(track)"
-                    >
-                        <img
-                            v-if="track.image"
-                            :src="`/storage/${track.image}`"
-                            class="w-24 h-24 rounded-lg"
-                            :alt="track.title + ' by ' + track.artist"
-                        />
-                        {{ track.title }} - {{ track.artist }}
-                        <audio
-                            v-if="track.music"
-                            controls
-                            :src="`/storage/${track.music}`"
-                            class="w-1/3 ml-auto"
-                        />
-                    </li>
+                        @click.stop="playMusic(track)"
+                        :track="track"
+                        :index="index"
+                        :active="active && currentTrack === track.uuid"
+                        @play="playMusic(track)"
+                    />
                 </ul>
             </div>
         </template>

@@ -19,9 +19,8 @@ class Track extends Model
         'play_count',
     ];
 
-    // Tried to add a default value but it says : "Constant expression contains invalid operations"
-    
-    // protected $attributes = [
-    //     'uuid' => 'trk-' . Str::uuid(),
-    // ];
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
 }

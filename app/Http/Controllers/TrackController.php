@@ -18,15 +18,12 @@ class TrackController extends Controller
 
         return Inertia::render("Track/Index", [
             "tracks" => $tracks,
-            'create_url' => route('tracks.index')
         ]);
     }
 
     public function create()
     {
-        return Inertia::render("Track/Create", [
-            'create_url' => route('tracks.create')
-        ]);
+        return Inertia::render("Track/Create");
     }
 
     public function store(Request $request)
@@ -56,8 +53,43 @@ class TrackController extends Controller
             'display' => $request->display,
         ]);
 
-        return redirect()->route('tracks.create', [
-            'response' => 'success'
+        return redirect()->route('tracks.create');
+    }
+
+    public function edit(Track $track)
+    {
+        return Inertia::render("Track/Update", [
+            'track' => $track,
         ]);
+    }
+
+    public function update(Request $request, Track $track)
+    {
+        $request->validate([
+            'title' => ['string', 'required', 'max:255'],
+            'artist' => ['string', 'required', 'max:255'],
+            'display' => ['boolean', 'required'],
+        ]);
+
+        $track->update([
+            'title' => $request->title,
+            'artist' => $request->artist,
+            'display' => $request->display,
+        ]);
+
+        return redirect()->route('tracks.index');
+    }
+
+    public function destroy(Track $track)
+    {
+        $track->delete();
+
+        $tracks = Track::where('display', true)
+        ->orderBy('id', 'desc')
+        ->get();
+
+        return redirect()->route('tracks.index', [
+            'tracks' => $tracks]
+        );
     }
 }
