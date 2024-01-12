@@ -122,15 +122,6 @@ const submit = () => {
                     class="bg-blue-500 hover:bg-blue-700 rounded-lg px-4 py-2 text-white font-bold hover:cursor-pointer w-fit"
                 />
             </form>
-            <div
-                v-if="form.processing"
-                class="w-96 h-8 bg-slate-50 border-black"
-            >
-                <div
-                    class="w-0 h-full bg-blue-400"
-                    :class="w - [form.progress + '%']"
-                ></div>
-            </div>
         </template>
     </HeaderLayout>
 </template>

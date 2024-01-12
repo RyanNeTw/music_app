@@ -3,12 +3,11 @@ import { ref, computed } from "vue";
 import TrackElement from "@/Components/TrackElement.vue";
 
 const props = defineProps({
-    tracks: Array,
+    playlist: Object,
 });
 
-const tracksRef = ref(props.tracks);
+const tracksRef = ref(props.playlist.tracks);
 const search = ref("");
-
 const currentTrack = ref(null);
 const audio = ref(null);
 
@@ -45,18 +44,12 @@ const playMusic = (track) => {
 </script>
 
 <template>
-    <Head title="Tracks" />
+    <Head :title="playlist.title" />
     <HeaderLayout>
-        <template #title> Tracks </template>
-        <template #action>
-            <Link
-                v-if="$page.props.auth.user && $page.props.auth.user.admin"
-                :href="route('tracks.create')"
-                class="text-white rounded-md px-3 py-2 text-sm font-medium bg-blue-500 hover:bg-blue-700"
-                aria-current="page"
-                >Add a track</Link
-            >
+        <template #title>
+            Playlist - {{ playlist.title }} made by {{ playlist.user.name }}
         </template>
+        <template #action></template>
         <template #content>
             <div>
                 <input

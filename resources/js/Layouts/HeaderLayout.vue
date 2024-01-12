@@ -17,16 +17,16 @@
                         </Link>
                         <div class="ml-6 flex items-center w-full">
                             <div class="flex space-x-4">
-                                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                 <Link
-                                    :href="route('tracks.create')"
+                                    v-if="$page.props.auth.user"
+                                    :href="route('playlists.index')"
                                     :class="{
                                         'bg-gray-900':
-                                            $page.url === '/tracks/create',
+                                            $page.url === '/playlists',
                                     }"
                                     class="text-white rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-700"
                                     aria-current="page"
-                                    >Add a track</Link
+                                    >Playlists</Link
                                 >
                             </div>
                             <div class="flex space-x-4 ml-auto">

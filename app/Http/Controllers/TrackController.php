@@ -11,7 +11,6 @@ class TrackController extends Controller
 {
     public function index()
     {
-
         $tracks = Track::where('display', true)
         ->orderBy('id', 'desc')
         ->get();

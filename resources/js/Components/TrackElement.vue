@@ -25,7 +25,7 @@ defineProps({
             {{ active ? "⏸" : "▶️" }}
         </div>
         <Link
-            v-if="$page.props.auth.user"
+            v-if="$page.props.auth.user && $page.props.auth.user.admin"
             :href="route('tracks.edit', { track: track })"
             class="w-8 h-8 text-2xl flex items-center justify-center absolute right-2 top-2 cursor-pointer bg-blue-500 hover:bg-blue-800 rounded-lg p-4"
             @click.stop
@@ -33,7 +33,7 @@ defineProps({
             ✎
         </Link>
         <Link
-            v-if="$page.props.auth.user"
+            v-if="$page.props.auth.user && $page.props.auth.user.admin"
             :href="route('tracks.destroy', { track: track })"
             method="delete"
             as="button"
