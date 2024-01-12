@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\TrackController;
+use App\Http\Controllers\ApikeyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/tracks', [TrackController::class, 'index']);
+Route::get('/api/apikey', [ApikeyController::class, 'index']);

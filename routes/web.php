@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\TrackController;
+use App\Http\Controllers\ApikeyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,5 +40,12 @@ Route::middleware([
         Route::put('/tracks/{track}', [TrackController::class, 'update'])->name('tracks.update');
     
         Route::delete('/tracks/{track}', [TrackController::class, 'destroy'])->name('tracks.destroy');
+    });
+
+    Route::middleware(['admin'])->group(function() {
+        Route::get('/apikeys', [ApikeyController::class, 'index'])->name('apikeys.index');
+
+      Route::post('/apikeys', [ApikeyController::class, 'store'])->name('apikeys.store');
+        Route::get('/apikeys/create', [ApikeyController::class, 'create'])->name('apikeys.create');
     });
 });
