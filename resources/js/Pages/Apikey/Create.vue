@@ -14,7 +14,6 @@ const form = useForm({
 });
 
 const submit = () => {
-    console.log(form)
     form.post(route("apikeys.store"));
 };
 </script>

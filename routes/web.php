@@ -45,7 +45,9 @@ Route::middleware([
     Route::middleware(['admin'])->group(function() {
         Route::get('/apikeys', [ApikeyController::class, 'index'])->name('apikeys.index');
 
-      Route::post('/apikeys', [ApikeyController::class, 'store'])->name('apikeys.store');
+        Route::post('/apikeys', [ApikeyController::class, 'store'])->name('apikeys.store');
         Route::get('/apikeys/create', [ApikeyController::class, 'create'])->name('apikeys.create');
+        
+        Route::delete('/apikeys/{apikey}', [ApikeyController::class, 'destroy'])->name('apikeys.destroy');
     });
 });

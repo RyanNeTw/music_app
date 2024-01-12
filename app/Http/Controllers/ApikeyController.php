@@ -55,4 +55,14 @@ class ApikeyController extends Controller
         return redirect()->route("apikeys.index");
 
     }
+
+    public function destroy(ApiKey $apiKey)
+    {
+        $apiKey->delete();
+        $apikeys = Apikey::all();
+
+        return redirect()->route('apikeys.index', [
+            'apikeys' => $apikeys]
+        );
+    }
 }
